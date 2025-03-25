@@ -7,6 +7,6 @@
         "JWT_KEY":"supersecret_dont_share",
         "GOOGLE_APPLICATION_CREDENTIALS": "GoogleCloud/causal-medium-411701-b25df84a8fbd.json",
         "PORT":"3001",
-        "FRONTEND_URL":"https://Lieux-frontend.vercel.app"
+        "FRONTEND_URL":"https://lieux-xi.vercel.app"
     }
 }
