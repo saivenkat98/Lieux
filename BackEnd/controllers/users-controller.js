@@ -6,15 +6,6 @@ const { validationResult } = require("express-validator");
 
 const HttpError = require("../models/http-error");
 
-// const DUMMY_USERS = [
-//   {
-//     id: "u1",
-//     name: "sai",
-//     email: "sai@gmail.com",
-//     password: "success",
-//   },
-// ];
-
 const getUsers = async (req, res, next) => {
   let users;
   try {
@@ -56,11 +47,14 @@ const signup = async (req, res, next) => {
     const error = new HttpError("Could not create user, please try again", 500);
     return next(error);
   }
+  // Use the cloudStoragePublicUrl from GCS instead of local file path
+  const imageUrl = req.file.cloudStoragePublicUrl;
+  
   const createdUser = new User({
     name,
     email,
     password: hashedPassword,
-    image: req.file.path,
+    image: imageUrl, // Store the GCS URL instead of local path
     places: [],
   });
 
@@ -83,8 +77,8 @@ const signup = async (req, res, next) => {
     const error = new HttpError("Signing up failed, please try again", 500);
     return next(error);
   }
-
-  res.status(201).json({ userId: createdUser.id, email: createdUser.email, token: token });
+ 
+  res.status(201).json({ userId: createdUser.id, email: createdUser.email, token: token, name: createdUser.name, image: createdUser.image });
 };
 
 const login = async (req, res, next) => {
@@ -133,8 +127,7 @@ const login = async (req, res, next) => {
     const error = new HttpError("Logging in failed, please try again", 501);
     return next(error);
   }
-
-  res.json({ userId: existingUser.id, email: existingUser.email, token: token });
+  res.json({ userId: existingUser.id, email: existingUser.email, token: token, name: existingUser.name, image: existingUser.image });
 };
 
 exports.getUsers = getUsers;

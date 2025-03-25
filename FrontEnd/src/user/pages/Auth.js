@@ -80,6 +80,8 @@ const Auth = () => {
             'Content-Type': 'application/json'
           }
         );
+        localStorage.setItem("userName", JSON.stringify(responseData.name));
+        localStorage.setItem("image", responseData.image);
         auth.login(responseData.userId, responseData.token);
       } catch (err) {}
     } else {
@@ -94,6 +96,8 @@ const Auth = () => {
           'POST',
           formData
         );
+        localStorage.setItem("userName", JSON.stringify(responseData.name));
+        localStorage.setItem("image", responseData.image);
         auth.login(responseData.userId, responseData.token);
       } catch (err) {}
     }

@@ -1,21 +1,23 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { NavLink } from "react-router-dom/cjs/react-router-dom.min";
-
 import "./NavLinks.css";
 import AuthContext from "../../context/auth-context";
+import Avatar from "../UIElements/Avatar";
 
 const NavLinks = (props) => {
+  const [show, setShow] = useState(false);
   const auth = useContext(AuthContext);
   return (
     <ul className="nav-links">
+      {auth.isLoggedIn && (
       <li>
         <NavLink to="/" exact>
           ALL USERS
         </NavLink>
-      </li>
+      </li>)}
       {auth.isLoggedIn && (
         <li>
-          <NavLink to={`/${auth.userId}/places`} >MY PLACES</NavLink>
+          <NavLink to={`/${auth.userId}/places`}>MY PLACES</NavLink>
         </li>
       )}
       {auth.isLoggedIn && (
@@ -29,8 +31,25 @@ const NavLinks = (props) => {
         </li>
       )}
       {auth.isLoggedIn && (
+        <Avatar
+          image={localStorage.image}
+          alt={localStorage.name}
+          style={{ width: 100, height: 100 }}
+          width={64}
+          onClick={() => setShow((show) => !show)}
+        />
+      )}
+      {auth.isLoggedIn && show && (
         <li>
-          <button onClick={auth.logout}> LOGOUT </button>
+          <button
+            onClick={() => {
+              setShow(false);
+              auth.logout(); // Corrected here
+            }}
+          >
+            {" "}
+            LOGOUT{" "}
+          </button>
         </li>
       )}
     </ul>

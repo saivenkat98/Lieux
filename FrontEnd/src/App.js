@@ -48,12 +48,12 @@ const App = () => {
   } else {
     routes = (
       <Switch>
-        <Route path="/" exact>
+        {/* <Route path="/" exact>
           <User />
         </Route>
         <Route path="/:userId/places" exact>
           <UserPlaces />
-        </Route>
+        </Route> */}
         <Route path="/auth" exact>
           <Auth />
         </Route>

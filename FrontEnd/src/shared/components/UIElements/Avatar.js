@@ -9,6 +9,7 @@ const Avatar = props => {
         src={props.image}
         alt={props.alt}
         style={{ width: props.width, height: props.width }}
+        onClick={props.onClick}
       />
     </div>
   );

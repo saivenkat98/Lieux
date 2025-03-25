@@ -4,13 +4,13 @@
   box-sizing: border-box;
 }
 
-html {
+html, body {
+  height: 100%;
   font-family: 'Open Sans', sans-serif;
-}
-
-body {
   margin: 0;
-  background: #4d4d4d;
+  overflow: hidden;
+  overflow-y: scroll;
+  background: linear-gradient(to bottom, #F9F6EE 5%, #F0E9DA 40%, #E8DDC2 70%, #B8AF91 100%);
 }
 
 .slide-in-left-enter {

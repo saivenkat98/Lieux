@@ -37,8 +37,6 @@ export const useForm = (initialInputs, initialFormValidity) => {
     inputs: initialInputs,
     isValid: initialFormValidity
   });
-
-  console.log(formState);
   
   const inputHandler = useCallback((id, value, isValid) => {
     dispatch({

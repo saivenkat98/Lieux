@@ -24,9 +24,9 @@
   .nav-links a:hover,
   .nav-links a:active,
   .nav-links a.active {
-    background: #f8df00;
+    background: #F9F6EE;
     border-color: #292929;
-    color: #292929;
+    color: #A20842;
   }
   
   .nav-links button {
@@ -74,3 +74,19 @@
       color: #292929;
     }
   }
+
+  /* Dropdown.module.css */
+.custom-dropdown .dropdown-menu {
+  display: block !important;
+  position: absolute;
+  background-color: white;
+  border-radius: 5px;
+}
+
+.custom-dropdown .dropdown-item {
+  color: black;
+}
+
+.custom-dropdown .dropdown-item:hover {
+  background-color: lightgray;
+}

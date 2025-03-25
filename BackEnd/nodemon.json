@@ -1,9 +1,12 @@
 {
-    "env":{
+    "env": {
         "DB_USER":"sai",
         "DB_PASSWORD":"sai",
-        "DB_NAME":"mern",
-        "GOOGLE_API_KEY":"AIzaSyBUi1dhYDPKsjt5TiPXaLUmSI3LtAonAfY",
-        "JWT_KEY":"supersecret_dont_share"
+        "DB_NAME":"mern-prod",
+        "GOOGLE_API_KEY":"AIzaSyDq4rmGBc77TQg6wF6gXRcGp0dbeXBls8Y",
+        "JWT_KEY":"supersecret_dont_share",
+        "GOOGLE_APPLICATION_CREDENTIALS": "GoogleCloud/causal-medium-411701-b25df84a8fbd.json",
+        "PORT":"3001",
+        "FRONTEND_URL":"https://Lieux-frontend.vercel.app"
     }
 }

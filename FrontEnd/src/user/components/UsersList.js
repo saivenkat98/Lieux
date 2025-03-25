@@ -4,6 +4,7 @@
  import './UsersList.css';
 
  const UsersList = props => {
+    
     if (props.items.length===0){
         return (
             <div className="center">
@@ -16,13 +17,15 @@
     return (
         <ul className="users-list">
             {props.items.map(user => (
-                <UserItem 
-                key={user.id}
-                id={user.id}
-                name={user.name}
-                image={user.image}
-                placeCount={user.places.length}
-                />
+                user.name !== localStorage.userName.replace(/"/g, '') && (
+                    <UserItem
+                      key={user.id}
+                      id={user.id}
+                      name={user.name}
+                      image={user.image}
+                      placeCount={user.places.length}
+                    />
+                  )
                 ))}
         </ul>
     );

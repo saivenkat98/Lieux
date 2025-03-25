@@ -12,15 +12,29 @@ const path = require('path');
 
 const app = express();
 
+const allowedOrigins = [
+  'http://localhost:3000',  // Local frontend
+  'https://Lieux-frontend.vercel.app',  // Replace with actual frontend URL
+  process.env.FRONTEND_URL  // Can be set in environment variables
+];
+
+app.use(cors({
+  origin: function(origin, callback){
+    // Allow requests with no origin 
+    if(!origin) return callback(null, true);
+    
+    if(allowedOrigins.indexOf(origin) === -1){
+      const msg = 'The CORS policy does not allow access from this origin.';
+      return callback(new Error(msg), false);
+    }
+    return callback(null, true);
+  },
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+  allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept', 'Authorization']
+}));
+
 app.use(bodyParser.json());
 app.use('/uploads/images',express.static(path.join('uploads','images')));
-
-app.use((req,res,next) => {
-  res.setHeader('Access-Control-Allow-Origin','*',);
-  res.setHeader('Access-Control-Allow-Headers','Origin, X-Requested-With, Content-Type, Accept, Authorization');
-  res.setHeader('Access-Control-Allow-Methods','GET, OPTIONS, POST, PUT, PATCH, DELETE');
-  next();
-})
 
 app.use("/api/places", placesRoutes);
 app.use("/api/users", usersRoutes);
@@ -50,8 +64,10 @@ mongoose
   )
   .then(() => {
     //app.listen(process.env.PORT || 3000);
-    app.listen(3001);
+    app.listen(process.env.PORT || 3001);
   })
   .catch((err) => {
     console.log(err);
   });
+
+module.exports = app;

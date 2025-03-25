@@ -31,7 +31,7 @@ const PlaceList = props => {
           creatorId={place.creator}
           onDelete={props.onDeletePlace}
         />
-      ))}
+))}
     </ul>
   );
 };
