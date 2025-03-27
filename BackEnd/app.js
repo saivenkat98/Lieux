@@ -14,9 +14,10 @@ const app = express();
 
 const allowedOrigins = [
   'http://localhost:3000',  // Local frontend
-  'https://Lieux-frontend.vercel.app',  // Replace with actual frontend URL
   process.env.FRONTEND_URL  // Can be set in environment variables
 ];
+
+console.log("orifin :",allowedOrigins);
 
 app.use(cors({
   origin: function(origin, callback){
