@@ -17,8 +17,6 @@ const allowedOrigins = [
   process.env.FRONTEND_URL  // Can be set in environment variables
 ];
 
-console.log("orifin :",allowedOrigins);
-
 app.use(cors({
   origin: function(origin, callback){
     // Allow requests with no origin 
