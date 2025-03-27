@@ -5,3 +5,9 @@
     width: 90%;
     max-width: 40rem;
   }
+
+  .w-fit-center {
+    width: fit-content !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}

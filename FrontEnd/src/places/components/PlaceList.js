@@ -8,7 +8,7 @@ import Card from "../../shared/components/UIElements/Card";
 const PlaceList = props => {
   if (props.items.length === 0) {
     return (
-      <div>
+      <div className="w-fit-center">
         <Card>
           <h2>No places found. Maybe Create One?</h2>
           <Button to="/places/new">Share Place</Button>
