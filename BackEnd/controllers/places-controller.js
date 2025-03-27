@@ -44,7 +44,8 @@ const getPlacesByUserId = async (req, res, next) => {
     return next(error);
   }
 
-  if (!userWithPlaces || userWithPlaces.places.length === 0) {
+  // if (!userWithPlaces || userWithPlaces.places.length === 0) {
+  if (!userWithPlaces) {
     return next(
       new HttpError("Could not find places for the provided userid.", 404)
     );
@@ -191,26 +192,59 @@ const deletePlace = async (req, res, next) => {
     return next(error);
   }
 
-  const imagePath = place.image;
-  try {
-    const sesh = await mongoose.startSession();
-    sesh.startTransaction();
-    await place.remove({ session: sesh });
-    place.creator.places.pull(place._id);
-    await place.creator.save({ session: sesh });
-    await sesh.commitTransaction();
-  } catch (err) {
-    const error = new HttpError(
-      "something went wrong, could not delete the place.",
-      500
-    );
-    return next(error);
-  }
+  // const imagePath = place.image;
+  // try {
+  //   const sesh = await mongoose.startSession();
+  //   sesh.startTransaction();
+  //   await place.remove({ session: sesh });
+  //   place.creator.places.pull(place._id);
+  //   await place.creator.save({ session: sesh });
+  //   await sesh.commitTransaction();
+  // } catch (err) {
+  //   const error = new HttpError(
+  //     "something went wrong, could not delete the place.",
+  //     500
+  //   );
+  //   return next(error);
+  // }
 
-  fs.unlink(imagePath, (err) => {
-    console.log(err);
-  });
-  res.status(200).json({ message: "place deleted." });
+  // fs.unlink(imagePath, (err) => {
+  //   console.log(err);
+  // });
+  // res.status(200).json({ message: "place deleted." });
+  const sesh = await mongoose.startSession();
+  
+try {
+  sesh.startTransaction();
+  
+  // Use deleteOne instead of remove
+  await Place.deleteOne({ _id: place._id }, { session: sesh });
+  
+  // Properly remove place reference from user's places array
+  await User.updateOne(
+    { _id: place.creator._id },
+    { $pull: { places: place._id } },
+    { session: sesh }
+  );
+  
+  await sesh.commitTransaction();
+  
+  res.status(200).json({ message: "Place deleted." });
+} catch (err) {
+  console.error('Deletion error:', err);
+  
+  // Ensure transaction is aborted if an error occurs
+  if (sesh.inTransaction()) {
+    await sesh.abortTransaction();
+  }
+  
+  return next(new HttpError(
+    "Something went wrong, could not delete the place.",
+    500
+  ));
+} finally {
+  await sesh.endSession();
+}
 };
 
 exports.getPlaceById = getPlaceById;
