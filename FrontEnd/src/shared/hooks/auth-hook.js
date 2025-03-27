@@ -7,6 +7,10 @@ export const useAuth = () => {
     const [tokenExpirationDate,setTokenExpirationDate] = useState();
     const [userId, setUserId] = useState(false);
 
+    const refreshWindow = () => {
+        window.location.reload();
+      };
+
     const login = useCallback((uid, token, expirationDate) => {
         setToken(token);
         setUserId(uid);
@@ -23,6 +27,7 @@ export const useAuth = () => {
         setUserId(null);
         setTokenExpirationDate(null);
         localStorage.removeItem('userData');
+        refreshWindow();
     }, []);
 
     useEffect(() => {
