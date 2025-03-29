@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
 import Backdrop from "../UIElements/Backdrop";
@@ -7,10 +7,12 @@ import NavLinks from "./NavLinks";
 import SideDrawer from "./SideDrawer";
 import MainHeader from "./MainHeader";
 import Avatar from "../UIElements/Avatar";
+import AuthContext from "../../context/auth-context";
 import "./MainNavigation.css";
 
 const MainNavigation = (props) => {
   const [drawerIsOpen, setDrawerIsOpen] = useState(false);
+  const auth = useContext(AuthContext);
   const OpenSideDrawer = () => {
     setDrawerIsOpen(true);
   };
@@ -47,12 +49,12 @@ const MainNavigation = (props) => {
           <NavLinks />
         </nav>
         <div className="main-navigation__image">
-        <Avatar
+        {auth.isLoggedIn && (<Avatar
           image={localStorage.image}
           alt={localStorage.name}
           style={styleAvatar}
           width={64}
-        />
+        />)}
         </div>
       </MainHeader>
     </React.Fragment>
