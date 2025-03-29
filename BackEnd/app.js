@@ -43,19 +43,18 @@ app.use((req, res, next) => {
   throw error;
 });
 
-// app.use((error, req, res, next) => {
-
-//   if(req.file){
-//     fs.unlink(req.file.path, (err) => {
-//       console.log(err);
-//     })
-//   }
-//   if (res.headerSent) {
-//     return next(error);
-//   }
-//   res.status(error.code || 500);
-//   res.json({ message: error.message || "unknown error occured!" });
-// });
+app.use((error, req, res, next) => {
+  // if(req.file){
+  //   fs.unlink(req.file.path, (err) => {
+  //     console.log(err);
+  //   })
+  // }
+  if (res.headerSent) {
+    return next(error);
+  }
+  res.status(error.code || 500);
+  res.json({ message: error.message || "unknown error occured!" });
+});
 
 mongoose
   .connect(
