@@ -3,8 +3,14 @@ const path = require('path');
 const uuid = require('uuid');
 
 // Initialize Google Cloud Storage (without specifying keyFilename, it uses GOOGLE_APPLICATION_CREDENTIALS from environment)
-const storage = new Storage();
-const bucketName = 'lieux-uploads'; // Your GCS bucket name
+const storage = new Storage({
+    projectId: process.env.GCP_PROJECT_ID,
+    credentials: {
+      client_email: process.env.GCP_CLIENT_EMAIL,
+      private_key: process.env.GCP_PRIVATE_KEY.replace(/\\n/g, '\n')
+    }
+  });
+const bucketName = process.env.GCS_BUCKET_NAME; // Your GCS bucket name
 const bucket = storage.bucket(bucketName);
 
 // Middleware to Upload File to GCS
