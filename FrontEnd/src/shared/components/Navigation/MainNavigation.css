@@ -44,4 +44,8 @@
     .main-navigation__header-nav {
       display: block;
     }
+
+    .main-navigation__image {
+      display: none;
+    }
   }

@@ -6,6 +6,7 @@ import Backdrop from "../UIElements/Backdrop";
 import NavLinks from "./NavLinks";
 import SideDrawer from "./SideDrawer";
 import MainHeader from "./MainHeader";
+import Avatar from "../UIElements/Avatar";
 import "./MainNavigation.css";
 
 const MainNavigation = (props) => {
@@ -16,6 +17,14 @@ const MainNavigation = (props) => {
   const CloseSideDrawer = () => {
     setDrawerIsOpen(false);
   };
+  const styleAvatar ={
+    position: "fixed",
+    right: "6.5%",
+    top: "0px",
+    width: "50px", // Set explicit width
+    height: "50px", // Set explicit height
+    display: "block", // Override the flex display
+  }
   return (
     <React.Fragment>
       {drawerIsOpen && <Backdrop onClick={CloseSideDrawer} />}
@@ -37,6 +46,14 @@ const MainNavigation = (props) => {
         <nav className="main-navigation__header-nav">
           <NavLinks />
         </nav>
+        <div className="main-navigation__image">
+        <Avatar
+          image={localStorage.image}
+          alt={localStorage.name}
+          style={styleAvatar}
+          width={64}
+        />
+        </div>
       </MainHeader>
     </React.Fragment>
   );
