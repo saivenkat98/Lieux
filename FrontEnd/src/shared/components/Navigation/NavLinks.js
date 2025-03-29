@@ -30,7 +30,7 @@ const NavLinks = (props) => {
           <NavLink to="/auth">AUTHENTICATION</NavLink>
         </li>
       )}
-      {auth.isLoggedIn && (
+      {auth.isLoggedIn && !props.sideDrawOpen && (
         <Avatar
           image={localStorage.image}
           alt={localStorage.name}
@@ -39,7 +39,7 @@ const NavLinks = (props) => {
           onClick={() => setShow((show) => !show)}
         />
       )}
-      {auth.isLoggedIn && show && (
+      {auth.isLoggedIn && (show || props.sideDrawOpen) && (
         <li>
           <button
             onClick={() => {

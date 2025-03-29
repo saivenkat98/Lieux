@@ -73,7 +73,6 @@ const createPlace = async (req, res, next) => {
   } catch (error) {
     return next(error);
   }
-
   const imageUrl =
     req.file && req.file.cloudStoragePublicUrl
       ? req.file.cloudStoragePublicUrl
