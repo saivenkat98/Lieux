@@ -52,8 +52,17 @@ app.use((error, req, res, next) => {
   if (res.headerSent) {
     return next(error);
   }
-  res.status(error.code || 500);
-  res.json({ message: error.message || "unknown error occured!" });
+
+  let statusCode = 500;
+  if (typeof error.code === 'number' && error.code >= 100 && error.code < 600) {
+    statusCode = error.code;
+  }
+  
+  res.status(statusCode);
+  res.json({ 
+    message: error.message || "Unknown error occurred!",
+    code: error.code // You can include the original error code in the response body
+  });
 });
 
 mongoose
