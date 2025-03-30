@@ -44,10 +44,10 @@ app.use((req, res, next) => {
 });
 
 app.use((error, req, res, next) => {
-  if(req.file){
+  if (req.file && req.file.path) {
     fs.unlink(req.file.path, (err) => {
-      console.log(err);
-    })
+      if (err) console.log(err);
+    });
   }
   if (res.headerSent) {
     return next(error);
