@@ -3,13 +3,18 @@ const path = require('path');
 const uuid = require('uuid');
 
 // Initialize Google Cloud Storage (without specifying keyFilename, it uses GOOGLE_APPLICATION_CREDENTIALS from environment)
+const decodedCredentials = JSON.parse(
+  Buffer.from(process.env.BASE64_ENCODED_SERVICE_ACCOUNT, 'base64').toString('utf8')
+);
+
 const storage = new Storage({
-    projectId: process.env.GCP_PROJECT_ID,
+    projectId: decodedCredentials.project_id,
     credentials: {
-      client_email: process.env.GCP_CLIENT_EMAIL,
-      private_key: process.env.GCP_PRIVATE_KEY.replace(/\\n/g, '\n')
+      client_email: decodedCredentials.client_email,
+      private_key: decodedCredentials.private_key.replace(/\\n/g, '\n')
     }
-  });
+});
+
 const bucketName = process.env.GCS_BUCKET_NAME; // Your GCS bucket name
 const bucket = storage.bucket(bucketName);
 
