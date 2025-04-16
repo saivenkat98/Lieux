@@ -1,4 +1,6 @@
-#FRONT END
+# 📍 Lieux – A Minimalist Social Platform for Places
+
+Few media files to showcase how the application is:
 
 Authentication landing pages:</br>
 <img width="800" alt="LOGIN" src="https://github.com/user-attachments/assets/bd0259f1-c74f-443d-aa39-6fd9151778ab" /></br>
